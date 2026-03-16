@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bpay1c7w42uuv"]
+
+[ext_resource type="Script" uid="uid://i40f6fs00y6r" path="res://Scripts/GameLoop.cs" id="1_5lt6y"]
+[ext_resource type="PackedScene" uid="uid://bqs2pvkt3kxc" path="res://Prefabs/PlayerPrefab.tscn" id="1_b5ayd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5lt6y"]
+
+[sub_resource type="Sky" id="Sky_5lt6y"]
+sky_material = SubResource("ProceduralSkyMaterial_5lt6y")
+
+[sub_resource type="Environment" id="Environment_8k7wh"]
+background_mode = 2
+sky = SubResource("Sky_5lt6y")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_b5ayd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b5ayd"]
+
+[node name="TestScene" type="Node3D" unique_id=1466070101]
+script = ExtResource("1_5lt6y")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1777986360]
+environment = SubResource("Environment_8k7wh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1799605968]
+transform = Transform3D(0.748326, -0.6397439, -0.17531681, 0.57917774, 0.50131667, 0.6428334, -0.32335952, -0.58258855, 0.74567366, 1.1745405, 10.46817, 0)
+shadow_enabled = true
+
+[node name="PlayerPrefab" parent="." unique_id=382588607 instance=ExtResource("1_b5ayd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=495552640]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0)
+mesh = SubResource("BoxMesh_b5ayd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1502880068]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1511040368]
+shape = SubResource("BoxShape3D_b5ayd")

@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://bqs2pvkt3kxc"]
+
+[ext_resource type="Script" uid="uid://b0i77bj11eamw" path="res://Scripts/Componnents/MovementComponent.cs" id="1_piivq"]
+[ext_resource type="Script" uid="uid://dm381xgndo3w" path="res://Scripts/PlayerCamera.cs" id="2_w740o"]
+[ext_resource type="Script" uid="uid://b0ajikb172gmk" path="res://Scripts/Componnents/MovementStatComponent.cs" id="3_0qaf3"]
+[ext_resource type="Script" uid="uid://cvvekvq8r1jnm" path="res://Scripts/Componnents/InputComponent.cs" id="4_npd64"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eivbo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nqa4v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gyjmo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_10iys"]
+
+[node name="PlayerPrefab" type="Node3D" unique_id=382588607]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1486459107 node_paths=PackedStringArray("CharacterStats")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_piivq")
+CharacterStats = NodePath("../MovementStatComponent")
+
+[node name="CameraPivot" type="Node3D" parent="CharacterBody3D" unique_id=1894814984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D/CameraPivot" unique_id=267510942 node_paths=PackedStringArray("CameraPivot")]
+spring_length = 4.0
+script = ExtResource("2_w740o")
+CameraPivot = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraPivot/SpringArm3D" unique_id=1328222911]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=436682533]
+shape = SubResource("CapsuleShape3D_eivbo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/CollisionShape3D" unique_id=1944878925]
+mesh = SubResource("CapsuleMesh_nqa4v")
+
+[node name="Butt" type="CollisionShape3D" parent="CharacterBody3D" unique_id=72428322]
+transform = Transform3D(-1.5298985e-08, -0.35, 0, 0.35, -1.5298985e-08, 0, 0, 0, 0.35, 0, -0.45, 0.38934517)
+shape = SubResource("CapsuleShape3D_gyjmo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Butt" unique_id=94765591]
+mesh = SubResource("CapsuleMesh_10iys")
+
+[node name="MovementStatComponent" type="Node" parent="." unique_id=1508232144 node_paths=PackedStringArray("ThisCharacter")]
+script = ExtResource("3_0qaf3")
+ThisCharacter = NodePath("../CharacterBody3D")
+metadata/_custom_type_script = "uid://b0ajikb172gmk"
+
+[node name="InputComponent" type="Node" parent="." unique_id=1892363892 node_paths=PackedStringArray("CharacterStats", "PlayerCamera")]
+script = ExtResource("4_npd64")
+CharacterStats = NodePath("../MovementStatComponent")
+PlayerCamera = NodePath("../CharacterBody3D/CameraPivot/SpringArm3D/Camera3D")
+metadata/_custom_type_script = "uid://cvvekvq8r1jnm"
