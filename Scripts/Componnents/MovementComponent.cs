@@ -7,6 +7,7 @@ public partial class MovementComponent : CharacterBody3D
 	[Export]
 	MovementStatComponent CharacterStats;
 
+
 	//Moves the character in the given direction with the given velocity
 	//Applies gravity if the character is in not touching the floor (can/should be adjusted for floating entities)
 	public override void _PhysicsProcess(double delta)

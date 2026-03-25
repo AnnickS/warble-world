@@ -16,6 +16,8 @@ public partial class MovementStatComponent : Node
 	private Vector3 InputDirection = Vector3.Zero;
 	[Export]
 	private float JumpVelocity = 5.0f;
+	[Export]
+	public float FloatHeight { get; private set; }
 	private bool Running = false;
 	private bool Jumping = false;
 
